@@ -7,7 +7,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter(); // initialize
   Hive.registerAdapter(ItemModelAdapter());
-  var box = await Hive.openBox<ItemModel>("Box"); // open a box
+  var box = await Hive.openBox<ItemModel>("cartBox"); // open a box
   runApp(MyApp());
 }
 

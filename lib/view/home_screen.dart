@@ -1,3 +1,4 @@
+import 'package:amazon/controller/product_screen_controller.dart';
 import 'package:amazon/database/database.dart';
 import 'package:amazon/model/item_model.dart';
 import 'package:amazon/utils/image_constant.dart';
@@ -14,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var box = Hive.box<ItemModel>("Box");
+  var box = Hive.box<ItemModel>("cartBox");
   bool isFavourite = false;
   var favouritelist = [];
   Color iconColor = Colors.grey;
@@ -106,17 +107,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       IconButton(
                         icon: Icon(
                           Icons.favorite,
+                          color: Colors.grey,
                         ),
                         onPressed: () {
-                          setState(() {
-                            box.put(
-                                favouritelist,
-                                ItemModel(
-                                    title: favouritelist[index]!.title,
-                                    des: favouritelist[index]!.des,
-                                    image: favouritelist[index]!.image,
-                                    price: favouritelist[index]!.price));
-                          });
+                          ProductScreenController()
+                              .addtocart(Database.itemList[index], context);
 
                           favouritelist = box.keys.toList(); // get keys from db
                           print("favourite list: $favouritelist");

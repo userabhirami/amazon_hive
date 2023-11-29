@@ -13,7 +13,7 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   // var box = Hive.box('myBox');
-  var box = Hive.box<ItemModel>("Box");
+  var box = Hive.box<ItemModel>("cartBox");
   var keylist = [];
   int count = 0;
   @override
@@ -47,7 +47,7 @@ class _CartPageState extends State<CartPage> {
               //   var item = box.get(keylist[index]);
               return Padding(
                 padding: const EdgeInsets.only(top: 10, bottom: 10),
-                child: keylist.length <= 1
+                child: keylist.length < 0
                     ? Center(child: Text("Add items in your cart"))
                     : ListTile(
                         title: Row(
@@ -92,40 +92,45 @@ class _CartPageState extends State<CartPage> {
                                     },
                                     icon: Icon(
                                       Icons.delete,
-                                      size: 18,
                                     )),
-                                Container(
-                                  height: 20,
-                                  width: 15,
-                                  color: Colors.grey,
-                                  child: Text(box
-                                      .get(keylist[index])!
-                                      .quantity
-                                      .toString()),
-                                ),
+
                                 IconButton(
                                     onPressed: () {
                                       CartscreenController().incrementQuanity(
                                           keylist[index],
-                                          box.get(keylist[index])!);
-                                      keylist = box.keys.toList();
+                                          box.get(keylist[index])! //notnull
+                                          );
+                                      //value--;
                                       setState(() {});
                                     },
                                     icon: Icon(
                                       Icons.add,
-                                      size: 15,
                                     )),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                box.get(keylist[index])!.quantity >= 1
+                                    ? Text(
+                                        box
+                                            .get(keylist[index])!
+                                            .quantity
+                                            .toString(),
+                                      )
+                                    : Text(1.toString()), //////////
+                                SizedBox(
+                                  width: 2,
+                                ),
                                 IconButton(
                                     onPressed: () {
                                       CartscreenController().decrementQuanity(
                                           keylist[index],
-                                          box.get(keylist[index])!);
-                                      keylist = box.keys.toList();
+                                          box.get(keylist[index])! //notnull
+                                          );
+                                      //value--;
                                       setState(() {});
                                     },
                                     icon: Icon(
                                       Icons.remove,
-                                      size: 15,
                                     )),
                               ],
                             ),

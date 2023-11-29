@@ -6,9 +6,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class ProductScreenController {
   var box = Hive.box<ItemModel>("cartBox");
+
   addtocart(ItemModel product, BuildContext context) async {
     box.add(product);
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text("data added")));
+        .showSnackBar(SnackBar(content: Text("data added to cart")));
   }
 }
