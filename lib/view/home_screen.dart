@@ -47,10 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
               InkWell(
                 onTap: () {
-                  /*   Navigator.push(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => CartPage()),
-                  ); */
+                  );
                 },
                 child: Container(
                   height: 40,
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () {
                           setState(() {
                             box.put(
-                                favouritelist[index],
+                                favouritelist,
                                 ItemModel(
                                     title: favouritelist[index]!.title,
                                     des: favouritelist[index]!.des,
